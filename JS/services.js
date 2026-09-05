@@ -1,0 +1,1 @@
+// Připraveno pro budoucí hover/video preview logiku.
