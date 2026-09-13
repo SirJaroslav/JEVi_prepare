@@ -4,8 +4,6 @@ services:
     container_name: ${JEVI_CONTAINER_NAME:-jevi-visual}
     ports:
       - "${HTTP_PORT:-8080}:80"
-    volumes:
-      - .:/var/www/html
     environment:
       - TZ=${TZ:-UTC}
     restart: unless-stopped
