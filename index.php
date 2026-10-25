@@ -1,4 +1,5 @@
 <?php
+$settings = require __DIR__ . '/config.php';
 /* Prázdné = index v aktuální složce. Při přepisu URL lze nastavit např. '/JEVi'. */
 $assetBase = rtrim($assetBase ?? '.', '/');
 $asset = static function ($relative) use ($assetBase) {
@@ -18,9 +19,9 @@ $storyWorks = $storyWorks ?? '#prace';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JEVi visual — Neordinární</title>
   <meta name="description" content="JEVi visual. Filmy, weby a vizuální tvorba s osobním rukopisem. Nejde o obraz, ale o pocit, co dává.">
-  <link rel="stylesheet" href="<?= $asset('css/global.css') ?>">
-  <link rel="stylesheet" href="<?= $asset('css/opening.css') ?>">
-  <link rel="stylesheet" href="<?= $asset('css/story.css') ?>">
+<link rel="stylesheet" href="css/global.css?v=<?= filemtime(__DIR__ . '/css/global.css') ?>">
+<link rel="stylesheet" href="css/opening.css?v=<?= filemtime(__DIR__ . '/css/opening.css') ?>">
+<link rel="stylesheet" href="css/story.css?v=<?= filemtime(__DIR__ . '/css/story.css') ?>">
   <?php if ($hasServices && is_file(__DIR__ . '/css/services.css')): ?>
     <link rel="stylesheet" href="<?= $asset('css/services.css') ?>">
   <?php endif; ?>
@@ -30,7 +31,8 @@ $storyWorks = $storyWorks ?? '#prace';
     <script defer src="<?= $asset('JS/services.js') ?>"></script>
   <?php endif; ?>
 </head>
-<body>
+
+<body data-countdown="<?= $settings['countdown'] ? 'on' : 'off' ?>">
   <a class="skip-link" href="#story">Přejít k příběhu</a>
   <main id="main-content">
     <?php include __DIR__ . '/includes/opening.php'; ?>
