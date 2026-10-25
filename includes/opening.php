@@ -1,5 +1,6 @@
 <section class="opening" id="opening" tabindex="-1" aria-labelledby="opening-title">
-  <div class="opening_meta" aria-hidden="true"><span>JEVi / VISUAL</span><span>FILM · DESIGN · WEB</span></div>
+  <!-- LOGO: cestu měňte v config.php. Texty níže upravujte mezi HTML značkami. -->
+  <div class="opening_meta"><img class="opening_logo" src="<?= htmlspecialchars($settings['logo'] ?? 'JEVi-production-A.svg', ENT_QUOTES, 'UTF-8') ?>" alt="JEVi production"><span>FILM · DESIGN · WEB</span></div>
   <div class="opening_content">
     <p class="opening_kicker">Vizuální studio</p>
     <h1 class="opening_title" id="opening-title">Neordinární<span>.</span></h1>

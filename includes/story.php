@@ -4,6 +4,8 @@ $storyHasWorks = $storyHasWorks ?? true;
 $storyEscape = static fn($value) => htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 ?>
 <section id="story" class="jv-story" aria-label="JEVi visual — filmový příběh" data-jv-story>
+  <!-- TEXTY PŘÍBĚHU: upravujte h2 a p níže. data-chapter ponechte 0,1,2,3:
+       JavaScript podle těchto čísel synchronizuje text s kamerou. -->
   <div class="jv-stage">
     <div class="jv-world" aria-hidden="true"></div>
     <div class="jv-vignette" aria-hidden="true"></div>
