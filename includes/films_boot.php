@@ -45,7 +45,7 @@ function page_top($title) { ?>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title><?=h($title)?> — JEVi production</title>
 
-        <link rel="stylesheet" href="css/films.css?v=<?= filemtime(__DIR__ . '/css/films.css') ?>">
+        <link rel="stylesheet" href="css/films.css?v=<?= filemtime(__DIR__ . '/../css/films.css') ?>">
     </head>
 
     <body>
