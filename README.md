@@ -53,3 +53,9 @@ Bez služeb je závěrečný odkaz do portfolia skrytý, aby nevedl na neexistuj
 ## Ověření
 
 Zkontrolována syntaxe obou JavaScriptů, lokální cesty, výpočetní sestavení scény včetně postavy a uvolnění geometrie. Logika openingu ověřena pro běžný odpočet, přeskočení, omezený pohyb, opakovanou návštěvu, přímou kotvu a nedostupné sessionStorage. Neproběhla vizuální kontrola v prohlížeči ani spuštění PHP v tomto prostředí.
+# Aktualizace: filmy, přihlášky a komentáře
+
+Aktuální návod je **NAVOD.md**. Odpočet je nyní standardně vypnutý v config.php.
+Filmová část používá MySQL a správu admin.php; podrobnosti nastavení jsou v novém návodu.
+Předchozí text popisuje původní samostatnou 3D scénu.
+
