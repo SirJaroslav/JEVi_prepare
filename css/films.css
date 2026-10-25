@@ -1,0 +1,359 @@
+/* VZHLED FILMŮ: zde měňte barvy, mezery a rozložení. Statusy mají i text, nejen barvu. */
+:root {
+    color-scheme:light;
+    --paper:#686866;
+    --ink:#ccd1d1;
+    --line:#dddddd;
+    --red:#bb2837
+}
+        
+* {
+    box-sizing:border-box
+}
+
+body {
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font:17px/1.6 Arial,Helvetica,sans-serif
+}
+
+a {
+    color:inherit;
+    text-underline-offset:6px
+}
+
+header,main,footer {
+    width:min(1250px,86%);
+    margin:auto
+}
+
+header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:28px 0;
+    border-bottom:1px solid var(--ink)
+}
+
+header img {
+    width:135px;
+    height:65px;
+    object-fit:contain
+}
+
+main {
+    padding:70px 0
+}
+
+footer {
+    border-top:1px solid var(--ink);
+    padding:30px 0;
+    font-size:13px
+}
+
+h1 {
+    font-size:clamp(44px,7vw,100px);
+    line-height:1.02;
+    letter-spacing:-.06em;
+    font-weight:500;
+    margin:30px 0 35px;
+    overflow-wrap:anywhere
+}
+
+h1 em {
+    font-family:Georgia,serif;
+    font-weight:400
+}
+
+h2 {
+    font-size:clamp(28px,3vw,46px);
+    line-height:1.1;
+    letter-spacing:-.04em;
+    font-weight:500;
+    margin:20px 0
+}
+
+h3 {
+    font-size:17px;
+    font-weight:500
+}
+
+.eyebrow {
+    font:12px/1.5 monospace;
+    letter-spacing:.14em;
+    color:#e8e8e8
+}
+
+.intro {
+    max-width:740px;
+    font-size:21px;
+    margin-bottom:70px
+}
+
+.film-card {
+    display:grid;
+    grid-template-columns:1.15fr 1fr;
+    gap:7%;
+    padding:50px 0;
+    border-top:1px solid var(--ink);
+    text-decoration:none
+}
+
+.film-card:nth-child(even) {
+    grid-template-columns:1fr 1.15fr
+}
+
+.film-card h2 {
+    transition:transform .2s
+}
+
+.film-card:hover h2 {
+    transform:translateX(7px)
+}
+
+.film-card p {
+    white-space:normal;
+    overflow-wrap:anywhere
+}
+
+.visual {
+    background:#c5c6c4;
+    min-height:260px;
+    display:grid;
+    place-items:center;
+    overflow:hidden
+}
+
+.visual img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    max-height:620px
+}
+
+.visual span {
+    padding:30px;
+    font:13px monospace;
+    color:#555
+}
+
+.status {
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    font:13px monospace
+}
+
+.status i {
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#c98322
+}
+
+.status.canceled i {
+    background:#c13342
+}
+
+.status.finished i {
+    background:#36845d
+}
+
+.more {
+    display:inline-block;
+    margin-top:20px;
+    border-bottom:1px solid
+}
+
+.bento {
+    display:grid;
+    grid-template-columns:repeat(12,minmax(0,1fr));
+    gap:60px 5%
+}
+
+.bento>section {
+    grid-column:span 6;
+    min-width:0;
+    border-top:1px solid var(--ink);
+    padding-top:24px
+}
+
+.bento .hero-photo {
+    grid-column:span 12;
+    padding:0;
+    border:0;
+    min-height:360px
+}
+
+.bento .crew {
+    grid-column:span 8
+}
+
+.bento .notes {
+    grid-column:span 4
+}
+
+.roles {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px 30px
+}
+
+.roles>div {
+    border-bottom:1px solid var(--line)
+}
+
+.roles p,.notes p {
+    overflow-wrap:anywhere
+}
+
+.application {
+    border-top:1px solid var(--ink);
+    margin-top:90px;
+    padding-top:40px
+}
+
+form {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:24px;
+    margin:30px 0
+}
+
+label {
+    display:block;
+    font-size:14px
+}
+
+input,textarea,select {
+    display:block;
+    width:100%;
+    border:0;
+    border-bottom:1px solid #666;
+    background:#ffffff38;
+    color:var(--ink);
+    font:16px/1.5 inherit;
+    padding:13px;
+    border-radius:0;
+    margin-top:8px;
+    font-family:inherit;
+    font-size:16px
+}
+
+textarea {
+    resize:vertical
+}
+
+button {
+    justify-self:start;
+    border:1px solid var(--ink);
+    background:var(--ink);
+    color:#eee;
+    padding:15px 25px;
+    font:16px Arial;
+    cursor:pointer
+}
+
+button:hover {
+    background:#444
+}
+
+.full {
+    grid-column:1/-1
+}
+
+form p {
+    font-size:14px
+}
+
+.trap {
+    position:absolute;
+    left:-9999px
+}
+
+.admin-row {
+    border-top:1px solid #aaa;
+    padding:25px 0
+}
+
+.admin-row form {
+    display:flex;
+    flex-wrap:wrap
+}
+
+.admin-row button {
+    font-size:14px;
+    padding:10px
+}
+
+.admin-nav {
+    display:flex;
+    gap:24px;
+    flex-wrap:wrap
+}
+
+.error,[role=alert] {
+    border-left:3px solid var(--red);
+    padding:12px 20px
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline:2px solid #222;
+    outline-offset:4px
+}
+
+
+@media(max-width:700px) {
+    header, main, footer {
+        width:88%
+    }
+
+    header a:last-child {
+        font-size:13px
+    }
+
+    main {
+        padding:45px 0
+    }
+
+    .film-card, .film-card:nth-child(even) {
+        grid-template-columns:1fr;
+        gap:25px
+    }
+
+    .bento {
+        display:block
+    }
+
+    .bento > section {
+        margin-bottom:45px
+    }
+
+    .bento .hero-photo {
+        min-height:200px
+    }
+
+    .intro {
+        font-size:18px
+    }
+
+    .roles {
+        grid-template-columns:1fr 1fr
+    }
+
+    form {
+        grid-template-columns:1fr
+    }
+
+    .application {
+        margin-top:40px
+    }
+}
+
+
+/* Bílé přiložené logo potřebuje na světlém podkladu tmavou podložku. */
+header img {
+    padding:5px;
+    height:80px
+}

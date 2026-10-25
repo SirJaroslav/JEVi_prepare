@@ -9,3 +9,5 @@
 @media(max-width:700px){.opening{padding:120px 7vw 160px}.opening_meta{inset:18px 18px auto;font-size:10px}.opening_meta span:last-child{font-size:9px;letter-spacing:.08em}.opening_title{font-size:clamp(38px,10.6vw,74px);margin-bottom:28px}.opening_kicker{margin-bottom:22px}.opening_text{font-size:16px;max-width:36ch}.opening_claim{font-size:21px;margin-top:26px}.opening_scroll{left:7vw;bottom:45px}.opening_bottom{display:none}.focus_ring--small{width:68vw}.focus_ring--large{width:86vw}.jv-countdown-brand{left:24px;top:32px}.jv-countdown-skip{right:24px;bottom:30px}}
 @media(max-height:550px) and (orientation:landscape){.opening{padding:90px 8vw 100px}.opening_title{font-size:64px;margin-bottom:20px}.opening_claim{font-size:21px;margin-top:18px}.opening_scroll{bottom:24px}.opening_bottom{bottom:44px}}
 @media(prefers-reduced-motion:reduce){.opening.is-focusing .opening_content,.opening.is-focusing .opening_focus,.jv-leader-sweep{animation:none}.opening_focus{display:none}}
+/* Dodané bílé logo je určené na tmavé pozadí. */
+.opening_logo { width:clamp(110px,15vw,190px); height:80px; object-fit:contain; }
