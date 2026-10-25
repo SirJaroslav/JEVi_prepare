@@ -1,4 +1,18 @@
 /* JEVi visual / The feeling remains. Three.js r180, bundled locally. */
+/* MAPA SOUBORU PRO ÚPRAVY
+ * Texty NEJSOU zde: otevřete includes/story.php (články data-chapter 0–3).
+ * Tady se kreslí svět: strom → auto → dům → postava → dráha kamery.
+ * Hodnoty pozice jsou [X, Y, Z]: doprava, nahoru, hloubka. Úhly jsou v radiánech.
+ * Barvy v Three.js píšeme 0x666666, v CSS #666666.
+ * Před změnami si uložte kopii. Měňte jednu hodnotu a obnovte stránku.
+ */
+const SCENE_SETTINGS = {
+  background: 0x666c6c, // Barva oblohy i mlhy; pro neutrální šedou např. 0x666666.
+  fog: .027,           // Vyšší číslo = hustší mlha. Zkuste .035, ne rovnou .2.
+  exposure: 1.2,       // Jas celého obrazu. Temnější varianta např. 1.05.
+  carScale: 1,         // Měřítko auta, např. .85 nebo 1.1.
+  carVisible: true,    // false skryje auto. Text příslušné kapitoly upravte zvlášť.
+};
 const roots = document.querySelectorAll('[data-jv-story]:not([data-jv-initialized])');
 for (const root of roots) {
   root.dataset.jvInitialized = 'true';
@@ -46,13 +60,13 @@ function buildScene(root, T) {
   renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 700 ? 1.4 : 1.75));
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.2;
+  renderer.toneMappingExposure = SCENE_SETTINGS.exposure;
   renderer.shadowMap.enabled = innerWidth >= 700;
   renderer.shadowMap.type = T.PCFSoftShadowMap;
   host.append(renderer.domElement);
   const scene = new T.Scene();
-  scene.background = new T.Color(0x666c6c);
-  scene.fog = new T.FogExp2(0x666c6c, .027);
+  scene.background = new T.Color(SCENE_SETTINGS.background);
+  scene.fog = new T.FogExp2(SCENE_SETTINGS.background, SCENE_SETTINGS.fog);
   const camera = new T.PerspectiveCamera(53, 1, .055, 180);
   scene.add(new T.HemisphereLight(0xdce0e0, 0x292b2b, 2));
   const moon = new T.DirectionalLight(0xe5e5e5, 2.5);
@@ -102,7 +116,9 @@ function buildScene(root, T) {
   beam(V(-.47,0,0),V(-.47,-3.45,0),.016,trim,swing);beam(V(.47,0,0),V(.47,-3.45,0),.016,trim,swing);
   box(1.14,.11,.42,darkwood,swing,0,-3.45,0);
   // Abandoned 1970s-inspired sedan: low roof, long hood, inset wheels, open arches.
-  const car=new T.Group();car.position.set(2.2,.015,-10);car.rotation.set(0,-.3,-.018);scene.add(car);
+  // AUTO: celek je skupina car. Dílčí box(..., car, ...) vytvářejí jeho součásti.
+  // position.set(X,Y,Z) posune celý vůz; rotation nastavuje jeho náklon.
+  const car=new T.Group();car.position.set(2.2,.015,-10);car.rotation.set(0,-.3,-.018);car.scale.setScalar(SCENE_SETTINGS.carScale);car.visible=SCENE_SETTINGS.carVisible;scene.add(car);
   const paint=mat(0x646969,{metalness:.25,roughness:.96});
   const fadedPaint=mat(0x4b5050,{metalness:.2,roughness:1});
   const corrosion=mat(0x292c2b,{metalness:.08,roughness:1});
@@ -193,6 +209,8 @@ function buildScene(root, T) {
     const scar=mesh(new T.CircleGeometry(.025+(i%3)*.012,5),corrosion,car,side*.988,.45+(i%3)*.08,-.8+i*.19);
     scar.rotation.y=side*Math.PI/2;scar.scale.set(1.9,.55,1);
   }
+  // DŮM: skupina house. Přední dveře míří k +Z. Neměňte pozici domu bez
+  // úpravy cíle kamery ve frames, jinak kamera na konci nenajde dveře.
   // Timber house, porch and real open doorway. Front points toward +Z.
   const house=new T.Group();house.position.set(12,0,-21);scene.add(house);
   box(8,.35,7.5,darkwood,house,0,.16,0);
@@ -278,6 +296,11 @@ function buildScene(root, T) {
     twig(V((rnd()-.5)*.6,0,(rnd()-.5)*.6),V(Math.cos(a)*.55,.6+rnd()*.4,Math.sin(a)*.55).normalize(),.6+rnd()*.45,.025,3,shrub);
   }
   seed=yardSeed;
+  // Skryté auto vyjmeme před sloučením geometrie: jinak by batching jeho díly znovu ukázal.
+  if (!SCENE_SETTINGS.carVisible) {
+    car.traverse(o => { if (o.isMesh) o.geometry.dispose(); });
+    scene.remove(car);
+  }
 
   // Batch static geometry by material; preserve the two animated groups.
   scene.updateMatrixWorld(true);
@@ -303,6 +326,9 @@ function buildScene(root, T) {
   }
   const oldGeometries=new Set();originals.forEach(o=>{oldGeometries.add(o.geometry);o.removeFromParent();});oldGeometries.forEach(g=>g.dispose());
 
+  // KAMERA: každý řádek = [postup 0 až 1, [pozice X,Y,Z], [kam se dívá X,Y,Z]].
+  // Dva shodné řádky polohy s různým postupem vytvoří pauzu na čtení.
+  // Pořadí prvních čísel musí stále růst. Koncová kamera musí mířit do domu.
   // Keyframes [scroll fraction, eye position, look target]. A hold is deliberate reading time.
   const frames=[
     [0,[0,1.7,18],[0,2,0]], [.10,[0,1.7,18],[0,2,0]],

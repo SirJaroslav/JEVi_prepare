@@ -1,5 +1,7 @@
 /* Finite countdown and focus reveal. Content stays readable without JavaScript. */
 (() => {
+  // Přepínač je v config.php. Vypnutí se projeví i novému návštěvníkovi.
+  if (document.body.dataset.countdown === 'off') return;
   const opening = document.querySelector('.opening');
   const overlay = document.querySelector('#countdown');
   const count = document.querySelector('#count');
